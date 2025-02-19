@@ -10,5 +10,8 @@ Road traffic accidents are considered the most important general concern, as it 
 
 I hope the data on road accidents and the basic analysis contained in this project will be useful in analysis of road safety issues leading to appropriate actions to achieve reduction in road accidents and resultant fatalities.
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/8020f0f4-0b5b-442b-a6c4-2086986a78ab)
+
+
+
 
