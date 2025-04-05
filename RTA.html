@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ACCIDENT SEVERITY</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <style>
+      html, body {
+      min-height: 100%;
+      }
+      body, div, form, input, select, textarea, p { 
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 14px;
+      color: #666;
+      line-height: 22px;
+      }
+      h1 {
+      position: absolute;
+      margin: 0;
+      font-size: 32px;
+      color: #fff;
+      z-index: 2;
+      }
+      .testbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: inherit;
+      padding: 20px;
+      width: 40%;
+      margin: auto;
+      }
+      form {
+      width: 100%;
+      padding: 20px;
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 0 30px 0 #8ebf42; 
+      }
+      .banner {
+      position: relative;
+      height: 210px;
+      background-image: url("a.jpg");  
+      background-size: contain;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      }
+      .banner::after {
+      content: "";
+      background-color: rgba(0, 0, 0, 0.5); 
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      }
+      p.top-info {
+      margin: 10px 0;
+      }
+      input, select, textarea {
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      }
+      input {
+      width: calc(100% - 10px);
+      padding: 5px;
+      }
+      select {
+      width: 100%;
+      padding: 7px 0;
+      background: transparent;
+      }
+      textarea {
+      width: calc(100% - 12px);
+      padding: 5px;
+      }
+      .item:hover p, .item:hover i, .question:hover p, .question label:hover, input:hover::placeholder {
+      color: #8ebf42;
+      }
+      .item input:hover, .item select:hover, .item textarea:hover {
+      border: 1px solid transparent;
+      box-shadow: 0 0 8px 0 #8ebf42;
+      color: #8ebf42;
+      }
+      .item {
+      position: relative;
+      margin: 10px 0;
+      }
+      input[type="date"]::-webkit-inner-spin-button {
+      display: none;
+      }
+      .item i, input[type="date"]::-webkit-calendar-picker-indicator {
+      position: absolute;
+      font-size: 20px;
+      color: #a9a9a9;
+      }
+      .item i {
+      right: 2%;
+      top: 30px;
+      z-index: 1;
+      }
+      [type="date"]::-webkit-calendar-picker-indicator {
+      right: 1%;
+      z-index: 2;
+      opacity: 0;
+      cursor: pointer;
+      }
+      input[type=radio] {
+      width: 0;
+      visibility: hidden;
+      }
+      label.radio {
+      position: relative;
+      display: inline-block;
+      margin: 5px 20px 25px 0;
+      cursor: pointer;
+      }
+      .question span {
+      margin-left: 30px;
+      }
+      label.radio:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      border: 2px solid #8ebf42;
+      }
+      label.radio:after {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 4px;
+      top: 6px;
+      left: 5px;
+      background: transparent;
+      border: 3px solid #8ebf42;
+      border-top: none;
+      border-right: none;
+      transform: rotate(-45deg);
+      opacity: 0;
+      }
+      input[type=radio]:checked + label:after {
+      opacity: 1;
+      }
+      .btn-block {
+      margin-top: 10px;
+      text-align: center;
+      }
+      button {
+      width: 150px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px; 
+      background: #8ebf42;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      }
+      button:hover {
+      background: #82b534;
+      }
+      @media (min-width: 568px) {
+      .name-item, .city-item {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      }
+      .name-item input, .city-item input {
+      width: calc(50% - 20px);
+      }
+      .city-item select {
+      width: calc(50% - 8px);
+      }
+      .body-class{
+        background-image: url("https://149491193.v2.pressablecdn.com/wp-content/uploads/2022/03/New-Project-2022-02-28T111234.930.jpg");  
+        
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+      }
+      }
+    </style>
+  </head>
+  <body class="body-class">
+    <div class="testbox">
+      <form action="{{url_for('predict')}}" method="post">
+        <div class="banner">
+          <h1>ACCIDENT SEVERITY</h1>
+        </div>
+      
+        <div class="question">
+          <p>Age band of driver</p>
+          <div class="question-answer">
+            <input type="radio" value="Under 18" id="radio_11" name="Age_band_of_driver"/>
+            <label for="radio_11" class="radio"><span>Under 18</span></label>
+            <input type="radio" value="18-30" id="radio_12" name="Age_band_of_driver" />
+            <label for="radio_12" class="radio"><span>18-30</span></label>
+            <input type="radio" value="31-50" id="radio_13" name="Age_band_of_driver" />
+            <label for="radio_13" class="radio"><span>31-50</span></label>
+            <input type="radio" value="Over 51" id="radio_14" name="Age_band_of_driver" />
+            <label for="radio_14" class="radio"><span>Over 51</span></label>
+          </div>    
+        </div>
+        <div class="question">
+          <p>Driving experience</p>
+          <div class="question-answer">
+             <input type="radio" value="Below 1yr" id="radio_20" name="Driving_experience"/>
+             <label for="radio_20" class="radio"><span>Below 1yr</span></label>
+            <input type="radio" value="1-2yr" id="radio_21" name="Driving_experience"/>
+            <label for="radio_21" class="radio"><span>1-2yr</span></label>
+            <input type="radio" value="2-5yr" id="radio_22" name="Driving_experience" />
+            <label for="radio_22" class="radio"><span>2-5yr</span></label>
+            <input type="radio" value="5-10yr" id="radio_23" name="Driving_experience" />
+            <label for="radio_23" class="radio"><span>5-10yr</span></label>
+            <input type="radio" value="Above 10yr" id="radio_24" name="Driving_experience" />
+            <label for="radio_24" class="radio"><span>Above 10yr</span></label>
+             <input type="radio" value="No Licence" id="radio_25" name="Driving_experience"/>
+             <label for="radio_25" class="radio"><span>No Licence</span></label>
+          </div>
+        </div>    
+        <div class="question">
+          <p>Sex of driver</p>
+          <div class="question-answer">
+            <input type="radio" value="Male" id="radio_31" name="Sex_of_driver"/>
+            <label for="radio_31" class="radio"><span>Male</span></label>
+            <input type="radio" value="Female" id="radio_32" name="Sex_of_driver" />
+            <label for="radio_32" class="radio"><span>Female</span></label>
+          </div>
+        </div>
+                           
+        <div class="item">
+            <p>Type of vehicle</p>
+            <select name="Type_of_vehicle" id="Type_of_vehicle">
+                 <option value="" disabled selected>Type of vehicle</option>
+                 <option value="Automobile">Automobile</option>
+                 <option value="Lorry">Lorry</option>
+                 <option value="Public Vehicles">Public Vehicles</option>
+                 <option value="Other">Other</option>
+                 <option value="Stationwagen">Stationwagen</option>
+                 <option value="Long lorry">Long lorry</option>
+                 <option value="Taxi">Taxi</option>
+                 <option value="Motorcycle">Motorcycle</option>
+                 <option value="Special vehicle">Special vehicle</option>
+                 <option value="Ridden horse">Ridden horse</option>
+                 <option value="Turbo">Turbo</option>
+                 <option value="Bajaj">Bajaj</option>
+                 <option value="Bicycle">Bicycle</option>
+             </select>    
+        </div>
+              
+        <div class="item">
+            <p>Lanes or Medians</p>
+            <select name="Lanes_or_Medians" id="Lanes_or_Medians">
+                <option value="" disabled selected>Lanes or Medians</option>
+                <option value="Two-way (divided with broken lines road marking)">Two-way (divided with broken lines road marking)</option>
+                <option value="Undivided Two way">Undivided Two way</option>
+                <option value="other">other</option>
+                <option value="Double carriageway (median)">Double carriageway (median)</option>
+                <option value="One way">One way</option>
+                <option value="Two-way (divided with solid lines road marking)">Two-way (divided with solid lines road marking)</option>
+            </select>
+        </div>
+            
+        <div class="item">
+             <p>Road allignment</p>
+             <select name="Road_allignment" id="Road_allignment">
+                 <option value="" disabled selected>Road allignment</option> 
+                 <option value="Tangent road with flat terrain">Tangent road with flat terrain</option>
+                 <option value="Tangent road with mild grade and flat terrain">Tangent road with mild grade and flat terrain</option>
+                 <option value="Steep grade downward with mountainous terrain">Steep grade downward with mountainous terrain</option>
+                 <option value="Tangent road with mountainous terrain and">Tangent road with mountainous terrain and</option>
+                 <option value="Gentle horizontal curve">Gentle horizontal curve</option>
+                 <option value="Escarpments">Escarpments</option>
+                 <option value="Sharp reverse curve">Sharp reverse curve</option>
+                 <option value="Tangent road with rolling terrain">Tangent road with rolling terrain</option>
+                 <option value="Steep grade upward with mountainous terrain">Steep grade upward with mountainous terrain</option>  
+            </select>
+        </div>
+          
+        <div class="item">
+            <p>Types of Junction</p>
+            <select name="Types_of_Junction" id="Types_of_Junction">
+                <option value="" disabled selected>Types of Junction</option>
+                <option value="Y Shape">Y Shape</option>
+                <option value="No junction">No junction</option>
+                <option value="Crossing">Crossing</option>
+                <option value="Other">Other</option>
+                <option value="O Shape">O Shape</option>
+                <option value="T Shape">T Shape</option>
+                <option value="X Shape">X Shape</option>
+              </select> 
+        </div> 
+                 
+        <div class="item">
+            <p>Road surface type</p>
+            <select name="Road_surface_type" id="Road_surface_type">
+                <option value="" disabled selected>Road surface type</option>
+                <option value="Asphalt roads">Asphalt roads</option>
+                <option value="Earth roads">Earth roads</option>
+                <option value="Gravel roads">Gravel roads</option>
+                <option value="Other">Other</option>
+                <option value="Asphalt roads with some distress">Asphalt roads with some distress</option>
+              </select> 
+        </div>
+                         
+        <div class="item">
+             <p>Road surface conditions</p>
+             <select name="Road_surface_conditions" id="Road_surface_conditions">
+                 <option value="" disabled selected>Road surface conditions</option>
+                 <option value="Dry">Dry</option>
+                 <option value="Wet or damp">Wet or damp</option>
+                 <option value="Snow">Snow</option>
+                 <option value="Flood over 3cm. deep">Flood over 3cm. deep</option>
+               </select> 
+        </div>
+                   
+        <div class="item">
+              <p>Type of collision</p>
+              <select name="Type_of_collision" id="Type_of_collision">
+                  <option value="" disabled selected>Type of collision</option>
+                  <option value="Vehicle with vehicle collision">Vehicle with vehicle collision</option>
+                  <option value="Collision with roadside objects">Collision with roadside objects</option>
+                  <option value="Collision with pedestrians">Collision with pedestrians</option>
+                  <option value="Rollover">Rollover</option>
+                  <option value="Collision with animals">Collision with animals</option>
+                  <option value="Collision with roadside-parked vehicles">Collision with roadside-parked vehicles</option>
+                  <option value="Fall from vehicles">Fall from vehicles</option>
+                  <option value="Other">Other</option>
+                  <option value="With Train">With Train</option>
+              </select> 
+        </div>
+           
+        <div class="item">
+              <p>Vehicle movement</p>
+              <select name="Vehicle_movement" id="Vehicle_movement">
+                     <option value="" disabled selected>Vehicle movement</option>
+                     <option value="Going straight">Going straight</option>
+                     <option value="Moving Backward">Moving Backward</option>
+                     <option value="Other">Other</option>
+                     <option value="Reversing">Reversing</option>
+                     <option value="Turnover">Turnover</option>
+                     <option value="Getting off">Getting off</option>
+                     <option value="Entering a junction">Entering a junction</option>
+                     <option value="Overtaking">Overtaking</option>
+                     <option value="Stopping">Stopping</option>
+                     <option value="U-Turn">U-Turn</option>
+                     <option value="Waiting to go">Waiting to go</option>
+                     <option value="Parked">Parked</option>
+              </select> 
+        </div>
+              
+        <div class="item">
+              <p>Cause of accident</p>
+              <select name="Cause_of_accident" id="Cause_of_accident">
+                     <option value="" disabled selected>Cause of accident</option>
+                     <option value="No distancing">No distancing</option>
+                     <option value="Changing lane to the right">Changing lane to the right</option>
+                     <option value="Changing lane to the left">Changing lane to the left</option>
+                     <option value="Driving carelessly">Driving carelessly</option>
+                     <option value="No priority to vehicle">No priority to vehicle</option>
+                     <option value="Moving Backward">Moving Backward</option>
+                     <option value="No priority to pedestrian">No priority to pedestrian</option>
+                     <option value="Other">Other</option>
+                     <option value="Overtaking">Overtaking</option>
+                     <option value="Driving under the influence of drugs">Driving under the influence of drugs</option>
+                     <option value="Driving to the left">Driving to the left</option>
+                     <option value="Overspeed">Overspeed</option>
+                     <option value="Getting off the vehicle improperly">Getting off the vehicle improperly</option>
+                     <option value="Overturning">Overturning</option>
+                     <option value="Turnover">Turnover</option>
+                     <option value="Overloading">Overloading</option>
+                     <option value="Drunk driving">Drunk driving</option>
+                     <option value="Improper parking">Improper parking</option>
+              </select> 
+        </div>
+              
+        <div>
+           <span class="details">Number of vehicles involved</span>
+           <input type="text" name="Number_of_vehicles_involved" required>
+        </div>
+              
+              
+        <div class="btn-block">
+          <button type="submit">Accident Severity</button>
+          {{prediction_text}}
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
